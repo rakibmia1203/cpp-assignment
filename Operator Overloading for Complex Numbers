@@ -1,0 +1,56 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Complex {
+public:
+    int a, b;
+
+    Complex(int real = 0, int imag = 0) : a(real), b(imag) {}
+
+    Complex operator+(const Complex& c) {
+        Complex result;
+        result.a = this->a + c.a;
+        result.b = this->b + c.b;
+        return result;
+    }
+
+    friend ostream& operator<<(ostream& out, const Complex& c) {
+        out << c.a << "+i" << c.b;
+        return out;
+    }
+
+    void input(const string& s) {
+        int v1 = 0, i = 0;
+        while (s[i] != '+') {
+            v1 = v1 * 10 + (s[i] - '0');
+            i++;
+        }
+        i++;
+        int v2 = 0;
+        while (i < s.length() && s[i] != 'i') {
+            v2 = v2 * 10 + (s[i] - '0');
+            i++;
+        }
+        a = v1;
+        b = v2;
+    }
+};
+
+int main() {
+    Complex x, y;
+    string s1, s2;
+    
+    cout << "Enter first complex number (format: a+bi): ";
+    cin >> s1;
+    x.input(s1);
+    
+    cout << "Enter second complex number (format: a+bi): ";
+    cin >> s2;
+    y.input(s2);
+
+    Complex z = x + y;
+    cout << "Sum: " << z << endl;
+
+    return 0;
+}
